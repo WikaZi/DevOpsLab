@@ -1,0 +1,35 @@
+
+name: Node.js CI
+
+on:
+  
+  push:
+    branches: ["Lab"]
+  pull_request:
+    branches: ["Lab"] 
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with: 
+              node-version: 20
+        
+      - name: Install dependencies
+        run: npm install
+
+    
+      - name: Start application
+        run: |
+          node app.js &
+          sleep 5 
+
+    
+      - name: Test endpoint
+        run: |
+          curl -f http://localhost:3000/ | grep "Hello, World!" || (echo "Endpoint test failed" && exit 1)
