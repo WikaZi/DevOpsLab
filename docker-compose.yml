@@ -2,8 +2,7 @@ version: '3'
 
 services:
   app:
-    build:
-      context: .  
+    image: node-app  
     ports:
       - "3000:3000" 
     depends_on:
